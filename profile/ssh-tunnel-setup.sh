@@ -4,9 +4,9 @@
 echoerr() { echo "$@" 1>&2; }
 
 # Run only if there are tunnels to be setup
-if [ "$SSH_TUNNELS" == "" ]
+if [ "$AUTOSSH_TUNNELS" == "" ]
 then
-  echo "\$SSH_TUNNELS undefined"
+  echo "\$AUTOSSH_TUNNELS undefined"
   exit 0
 fi
 
@@ -21,21 +21,21 @@ mkdir -p ${HOME}/.ssh
 chmod 700 ${HOME}/.ssh
 
 # Copy public key env variable into a file
-if [ "${SSH_PUBLIC_KEY}" != "" ]
+if [ "${AUTOSSH_PUBLIC_KEY}" != "" ]
 then
-  echo "${SSH_PUBLIC_KEY}" > ${HOME}/.ssh/id_rsa.pub
+  echo "${AUTOSSH_PUBLIC_KEY}" > ${HOME}/.ssh/id_rsa.pub
   chmod 644 ${HOME}/.ssh/id_rsa.pub
 else
-  echo "\$SSH_PUBLIC_KEY undefined"
+  echo "\$AUTOSSH_PUBLIC_KEY undefined"
 fi
 
 # Copy private key env variable into a file
-if [ "${SSH_PRIVATE_KEY}" != "" ]
+if [ "${AUTOSSH_PRIVATE_KEY}" != "" ]
 then
-  echo "${SSH_PRIVATE_KEY}" > ${HOME}/.ssh/id_rsa
+  echo "${AUTOSSH_PRIVATE_KEY}" > ${HOME}/.ssh/id_rsa
   chmod 600 ${HOME}/.ssh/id_rsa
 else
-  echo "\$SSH_PUBLIC_KEY undefined"
+  echo "\$AUTOSSH_PUBLIC_KEY undefined"
 fi
 
 # SSH_TUNNELS variable contains a comma separated list of tunnesl with the following format:
@@ -44,7 +44,7 @@ fi
 # Monitoring ports
 M=5050
 
-for tunnel in `echo $SSH_TUNNELS | tr , ' '`
+for tunnel in `echo $AUTOSSH_TUNNELS | tr , ' '`
 do
   echo "# $tunnel"
   if [[ "$tunnel" == *"\""* ]]; then
