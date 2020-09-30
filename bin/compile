@@ -36,18 +36,18 @@ download_autossh() {
 
 build_autossh() {
   echo "       Building autossh..."
-  cd $CACHE_DIR/autossh/autossh-1.4e
+  cd $CACHE_DIR/autossh/autossh-1.4g
   ./configure --quiet
   make --quiet
 }
 
 cleanup() {
   echo "       Cleaning up..."
-  find $CACHE_DIR/autossh/autossh-1.4e -type f  | grep -v "autossh$" | xargs rm
+  find $CACHE_DIR/autossh/autossh-1.4g -type f  | grep -v "autossh$" | xargs rm
 }
 
 install_autossh() {
-  cp $CACHE_DIR/autossh/autossh-1.4e/autossh $BUILD_DIR/.heroku/autossh
+  cp $CACHE_DIR/autossh/autossh-1.4g/autossh $BUILD_DIR/.heroku/autossh
   chmod +x $BUILD_DIR/.heroku/autossh/autossh
   echo "       Installation successful!"
 }
